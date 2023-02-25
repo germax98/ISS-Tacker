@@ -1,12 +1,12 @@
 import { HeaderTest } from './components/Header/header.component';
-import { Map } from './components/Map/map.component';
+import MapTest from './components/Map/map.component';
 import './App.scss';
 
 function App() {
   return (
     <div className="App">
       <HeaderTest/>
-      <Map/>
+      <MapTest/>
     </div>
   );
 }
