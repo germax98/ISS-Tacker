@@ -20,12 +20,11 @@ export const IssPositionProvider = ({ children }) => {
 
     fetchData()
 
-    const interval = setInterval(fetchData, 300000)
+    const interval = setInterval(fetchData, 30000)
 
     return () => clearInterval(interval)
   }, [])
 
-  console.log("issPosition:", issPosition)
 
   const value = { issPosition }
 
@@ -35,4 +34,6 @@ export const IssPositionProvider = ({ children }) => {
     </IssPositionContext.Provider>
   )
 }
+
+//Problem: marker on the map is not updating 
 
