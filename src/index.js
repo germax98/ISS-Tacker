@@ -4,12 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { IssPositionProvider } from './contexts/issposition.context';
+import { CurrentCountryProvider } from './contexts/country.context';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
     <IssPositionProvider>
-      <App />
+      <CurrentCountryProvider>
+        <App />
+      </CurrentCountryProvider>
     </IssPositionProvider>
   </React.StrictMode>
 );

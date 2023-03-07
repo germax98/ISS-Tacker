@@ -22,7 +22,7 @@ export const MapIss =  () => {
   if(issPosition.name){
     positionMap = [issPosition.latitude,issPosition.longitude]
   }
-  console.log(issPosition)
+  
   const roundLat=Math.round(issPosition.latitude * 10) / 10
   const roundLon=Math.round(issPosition.longitude * 10) / 10
  

@@ -35,5 +35,5 @@ export const IssPositionProvider = ({ children }) => {
   )
 }
 
-//Problem: marker on the map is not updating 
+
 
