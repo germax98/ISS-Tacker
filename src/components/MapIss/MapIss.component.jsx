@@ -29,13 +29,20 @@ export const MapIss =  () => {
   
   return (
     <div className="test-map">
-      <MapContainer center={[51.505, -0.09]} zoom={2.1} scrollWheelZoom={false} style={{ height: "400px", width: "100%" }}>
+      <MapContainer 
+      center={[51.505, -0.09]} 
+      zoom={2.1} 
+      scrollWheelZoom={false} 
+      style={{ height: "400px", width: "100%" }}
+      
+      >
 
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker 
+        key={`${roundLat}-${roundLon}`}
         position={positionMap}
         icon={svgIcon}
         >
