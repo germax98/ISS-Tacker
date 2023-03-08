@@ -1,9 +1,9 @@
-import React from "react";
-import { MapContainer, TileLayer,Marker,Popup } from "react-leaflet";
-import { useContext } from "react"
-import { IssPositionContext } from "../../contexts/issposition.context"
+import React, { useState, useContext, useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from 'leaflet'
+import Button from 'react-bootstrap/Button'
 import "./MapIss.Styles.scss";
+import { IssPositionContext } from "../../contexts/issposition.context"
 
 const svgIcon = L.divIcon({
   html: `
@@ -12,45 +12,53 @@ const svgIcon = L.divIcon({
 </svg>`,
   className: "svg-icon",
   iconSize: [60, 60],
-  
 });
 
+export const MapIss = () => {
+  
+  const [focusState, setFocusState] = useState(false);
+  const { issPosition } = useContext(IssPositionContext);
 
-export const MapIss =  () => {
-  let positionMap = [51.505, -0.09]
-  const { issPosition } =useContext(IssPositionContext)
-  if(issPosition.name){
-    positionMap = [issPosition.latitude,issPosition.longitude]
-  }
-  
-  const roundLat=Math.round(issPosition.latitude * 10) / 10
-  const roundLon=Math.round(issPosition.longitude * 10) / 10
- 
-  
+  useEffect(() => {
+      if (focusState && issPosition.name) {
+        setTimeout(() => {
+          const { latitude, longitude } = issPosition;
+          
+        }, 1000); // wait for 1 second before updating the map center
+      } else {
+        
+      }
+    
+  }, [ focusState, issPosition]);
+
+  const Focus = () => {
+    setFocusState(!focusState);
+  };
+
   return (
-    <div className="test-map">
-      <MapContainer 
-      center={[51.505, -0.09]} 
-      zoom={2.1} 
-      scrollWheelZoom={false} 
-      style={{ height: "400px", width: "100%" }}
-      
-      >
-
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker 
-        key={`${roundLat}-${roundLon}`}
-        position={positionMap}
-        icon={svgIcon}
+    <div>
+      <div className="test-map">
+        <MapContainer
+          
+          center={[51.505, -0.09]}
+          zoom={3}
+          scrollWheelZoom={false}
+          style={{ height: "400px", width: "100%" }}
         >
-          <Popup>
-          Position of the ISS.
-          </Popup>
-        </Marker>
-      </MapContainer>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {issPosition.latitude && issPosition.longitude && (
+            <Marker key={issPosition.name} position={[issPosition.latitude, issPosition.longitude]} icon={svgIcon}>
+              <Popup>Position of the ISS.</Popup>
+            </Marker>
+          )}
+          
+        </MapContainer>
+      </div>
+      <Button variant="primary" onClick={Focus}>Focus on ISS</Button>
     </div>
   );
 };
+
